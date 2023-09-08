@@ -13,6 +13,9 @@ def news(request):
         'news':[
             "RiffMates now has a news page!",
             "RiffMates has its first web page",
+            # 'book':{
+            #     'name':'Damu nNyeusi'
+            # }
         ],
     }
 
