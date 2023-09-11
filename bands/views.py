@@ -22,6 +22,13 @@ def musicians(request):
     page_num = request.GET.get('page', 1)
     page_num = int(page_num)
 
+    if page_num < 1:
+        page_num =1
+    elif page_num > paginator.num_pages:
+        page_num = paginator.num_pages
+
+
+
 
 
 
