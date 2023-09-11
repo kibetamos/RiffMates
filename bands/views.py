@@ -27,6 +27,15 @@ def musicians(request):
     elif page_num > paginator.num_pages:
         page_num = paginator.num_pages
 
+    page = paginator.page(page_num)
+
+    data =  {
+        'musicians':page.object_list,
+        'page':page
+    }
+
+    return render(request,'musicians.html',data)
+
 
 
 
