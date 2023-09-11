@@ -13,3 +13,10 @@ def musician(request, musician_id):
             }
     
     return render(request, "musician.html", data)
+
+
+def musicians(request):
+    data = {
+        'musicians':Musician.objects.all().order_by('last_name'),#1
+        }
+    return render(request, "musicians.html", data)
