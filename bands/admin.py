@@ -6,7 +6,8 @@ from bands.models import Musician, Venue, Room
 
 @admin.register(Musician)
 class MusicianAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'last_name', 'show_weekday')
+    # pass
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
