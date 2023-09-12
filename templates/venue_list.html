@@ -1,0 +1,22 @@
+<!-- venue_list.html -->
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Venue List</title>
+</head>
+<body>
+    <h1>Venue List</h1>
+
+    <ul>
+        {% for venue in venues %}
+            <li>{{ venue.name }}</li>
+            <ul>
+                {% for room in venue.room_set.all %}
+                    <li>{{ room.name }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+</body>
+</html>
