@@ -1,5 +1,7 @@
 <!-- venue_list.html -->
 {% extends "base.html" %}
+<!-- venue_list.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +10,18 @@
 <body>
     <h1>Venue List</h1>
 
-    <ul>
-        {% for venue in venues %}
-            <li>{{ venue.name }}</li>
-            <ul>
-                {% for room in venue.room_set.all %}
-                    <li>{{ room.name }}</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+    {% if venues %}
+        <ul>
+            {% for venue in venues %}
+                <li>{{ venue.name }}</li>
+                {% if venue.room_set.all %}
+                    <ul>
+                        {% for room in venue.room_set.all %}
+                            <li>{{ room.name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No rooms available for this venue.</p>
+                {% endif %}
+            {% endfor %}
+       
