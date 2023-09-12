@@ -1,27 +1,17 @@
-<!-- venue_list.html -->
 {% extends "base.html" %}
-<!-- venue_list.html -->
+{% block title %}
+    {{block.super}}: Venue Listing
+{% endblock %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Venue List</title>
-</head>
-<body>
-    <h1>Venue List</h1>
-
-    {% if venues %}
-        <ul>
-            {% for venue in venues %}
-                <li>{{ venue.name }}</li>
-                {% if venue.room_set.all %}
-                    <ul>
-                        {% for room in venue.room_set.all %}
-                            <li>{{ room.name }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No rooms available for this venue.</p>
-                {% endif %}
-            {% endfor %}
-       
+{% block content %}
+<h1>Venues</h1>
+    <ul>
+    {% for venue in venues %}
+        <li> <a href="{% url 'musician' musician.id %}"> #1
+        {{venue.name}}
+        </a> </li>
+        {% empty %}
+        <li> <i>No venues in the database</i> </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
