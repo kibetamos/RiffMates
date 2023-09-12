@@ -1,7 +1,16 @@
 from django.db import models
 
-# Create your models here.
+# Create your models here.]
+
+class Venue(models.Models):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f"Venue(id={self.id}, name={self.name})"
+
 class Musician(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     birth = models.DateField()
+
+
