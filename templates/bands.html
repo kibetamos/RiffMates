@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block title %}
-    {{block.super}}: Musician Listing
+    {{block.super}}: Band Listing
 {% endblock %}
 
 {% block content %}
-<h1>Musicians</h1>
+<h1>Bands</h1>
     <ul>
-    {% for musician in musicians %}
+    {% for band in bands %}
         <li> <a href="{% url 'musician' musician.id %}"> #1
-        {{musician.last_name}}, {{musician.first_name}}
+        {{band.name}}
         </a> </li>
         {% empty %}
-        <li> <i>No musicians in the database</i> </li>
+        <li> <i>No bands in the database</i> </li>
     {% endfor %}
     </ul>
 {% endblock content %}
