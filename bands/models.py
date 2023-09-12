@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.]
 
-class Venue(models.Models):
+class Venue(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
@@ -15,7 +15,7 @@ class Room(models.Model):
     def __str__(self):
         return f"Room(id={self.id}, name={self.name})"
     
-    
+
 class Musician(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
