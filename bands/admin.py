@@ -13,7 +13,6 @@ class MusicianAdmin(admin.ModelAdmin):
         return obj.birth.strftime("%A")
     
     show_weekday.short_description = "Birth Weekday"
-    # pass
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
