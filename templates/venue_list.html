@@ -7,7 +7,7 @@
 <h1>Venues</h1>
     <ul>
     {% for venue in venues %}
-        <li> <a href="{% url 'musician' musician.id %}"> #1
+        
         {{venue.name}}
         </a> </li>
         {% empty %}
