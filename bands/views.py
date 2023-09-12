@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 from django.shortcuts import render, get_object_or_404 #1
 
-from bands.models import Band, Musician
+from bands.models import Band, Musician, Venue
 
 def musician(request, musician_id):
     musician = get_object_or_404(Musician, id=musician_id) 
@@ -74,3 +74,9 @@ def bands(request):
     #     'musicians':Musician.objects.all().order_by('last_name'),
     #     }
     # return render(request, "musicians.html", data)
+
+
+def venues(request):
+    venues = Venue.objects.all().order_by('name')
+
+    return render(request, 'venue_list.html', {'venues': venues})
