@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 from django.shortcuts import render, get_object_or_404 #1
 
-from bands.models import Musician
+from bands.models import Band, Musician
 
 def musician(request, musician_id):
     musician = get_object_or_404(Musician, id=musician_id) 
@@ -38,6 +38,15 @@ def musicians(request):
 
 
 
+
+def band(request, band_id):
+    band = get_object_or_404(Band, id=band_id) 
+
+    data = {
+        "band": band,
+            }
+    
+    return render(request, "band.html", data)
 
 
 
