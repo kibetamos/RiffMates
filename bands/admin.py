@@ -1,6 +1,8 @@
 from django.contrib import admin
-from datetime import datetime, date
+from datetime import datetime, date  
 # Register your models here.
+from datetime import datetime, date
+
 
 from bands.models import Musician, Venue, Room
 
@@ -14,6 +16,10 @@ class MusicianAdmin(admin.ModelAdmin):
         return obj.birth.strftime("%A")
     
     show_weekday.short_description = "Birth Weekday"
+
+class DecadeListFilter(admin.SimpleListFilter):
+
+
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
