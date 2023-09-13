@@ -4,7 +4,7 @@ from datetime import datetime, date
 from datetime import datetime, date
 
 
-from bands.models import Musician, Venue, Room
+from bands.models import Band, Musician, Venue, Room
 class DecadeListFilter(admin.SimpleListFilter):
     title = 'decade born'
     parameter_name = 'decade'
@@ -48,6 +48,10 @@ class MusicianAdmin(admin.ModelAdmin):
     show_weekday.short_description = "Birth Weekday"
 
 
+
+@admin.register(Band)
+class VenueAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
