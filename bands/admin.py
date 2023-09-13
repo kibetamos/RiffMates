@@ -18,6 +18,21 @@ class MusicianAdmin(admin.ModelAdmin):
     show_weekday.short_description = "Birth Weekday"
 
 class DecadeListFilter(admin.SimpleListFilter):
+    title = 'decade born'
+    parameter_name = 'decade'
+
+    def lookups(self, request, model_admin):
+
+        result = []
+        this_year = datetime.today().year
+
+        this_decade = (this_year // 10) * 10 #5
+        
+        start = this_decade - 10
+        for year in range(start, start - 100, -10): #6
+
+            result.append( (str(year), f"{year}-{year+9}") ) #7
+        return result
 
 
 
