@@ -26,12 +26,12 @@ class DecadeListFilter(admin.SimpleListFilter):
         result = []
         this_year = datetime.today().year
 
-        this_decade = (this_year // 10) * 10 #5
-        
-        start = this_decade - 10
-        for year in range(start, start - 100, -10): #6
+        this_decade = (this_year // 10) * 10 
 
-            result.append( (str(year), f"{year}-{year+9}") ) #7
+        start = this_decade - 10
+        for year in range(start, start - 100, -10): 
+
+            result.append( (str(year), f"{year}-{year+9}") ) 
         return result
 
 
