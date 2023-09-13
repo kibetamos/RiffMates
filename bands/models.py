@@ -20,6 +20,9 @@ class Musician(models.Model):
     last_name = models.CharField(max_length=50)
     birth = models.DateField()
 
+    class Meta:
+        ordering = ["last_name", "first_name"]
+
 class Band(models.Model):
     name = models.CharField(max_length=20) 
     
