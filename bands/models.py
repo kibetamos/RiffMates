@@ -12,7 +12,7 @@ class Room(models.Model):
     name = models.CharField(max_length=20)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
 
-    class Meta:
+    class Meta: 
         unique_together = [["name", "venue"]]
 # alternate short-cut version as there is only one "uniqueness"
 # unique_together = ["name", "venue"]
