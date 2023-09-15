@@ -25,7 +25,7 @@ class DecadeListFilter(admin.SimpleListFilter):
     
 
     def queryset(self, request, queryset):
-        start = self.value() #8
+        start = self.value() 
         if start is None:
             return queryset
         start = int(start)
