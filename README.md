@@ -9,3 +9,7 @@ Set up a python vitual environment
 
 Install requirements by running 
 
+    pip install -r requirements.txt
+
+    
+
