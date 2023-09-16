@@ -6,3 +6,6 @@ This is a python based music system aimed at connecting musicians
 Set up a python vitual environment
 
     python -m venv env 
+
+Install requirements by running 
+
