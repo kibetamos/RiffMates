@@ -14,4 +14,6 @@ Install requirements by running
 Start server by running:
     Python manage.py runserver
 
-    
+Access it locally by running 
+
+    127.0.0.1:8000
