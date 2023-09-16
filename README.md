@@ -12,3 +12,6 @@ Install requirements by running
     pip install -r requirements.txt
 
 Start server by running:
+    Python manage.py runserver
+
+    
