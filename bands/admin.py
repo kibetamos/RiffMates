@@ -11,7 +11,6 @@ class DecadeListFilter(admin.SimpleListFilter):
     parameter_name = 'decade'
 
     def lookups(self, request, model_admin):
-
         result = []
         this_year = datetime.today().year
 
