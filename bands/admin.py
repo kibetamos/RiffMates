@@ -62,6 +62,7 @@ class MusicianAdmin(admin.ModelAdmin):
 
 @admin.register(Band)
 class BandAdmin(admin.ModelAdmin):
+    
     pass
 
 @admin.register(Venue)
