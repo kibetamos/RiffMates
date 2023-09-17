@@ -49,7 +49,6 @@ class MusicianAdmin(admin.ModelAdmin):
         plural = "" 
         if len(bands) > 1:
             plural = "s"
-
         parm = "?id__in=" + ",".join([str(b.id) for b in bands]) 
         url = reverse("admin:bands_band_changelist") + parm 
         return format_html('<a href="{}">Band{}</a>', url, plural)
