@@ -46,7 +46,7 @@ class MusicianAdmin(admin.ModelAdmin):
 
             return format_html("<i>None</i>")
         
-        plural = "" #5
+        plural = "" 
         if len(bands) > 1:
             plural = "s"
 
