@@ -1,6 +1,7 @@
+# Register your models here.
 from django.contrib import admin
 from datetime import datetime, date  
-# Register your models here.
+
 from datetime import datetime, date
 from django.utils.html import format_html 
 from django.urls import reverse
@@ -8,7 +9,7 @@ from django.urls import reverse
 from bands.models import Band, Musician, Venue, Room
 class DecadeListFilter(admin.SimpleListFilter):
     title = 'decade born'
-    
+
     parameter_name = 'decade'
 
 
