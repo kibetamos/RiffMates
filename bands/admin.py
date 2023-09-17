@@ -4,8 +4,8 @@ from datetime import datetime, date
 from datetime import datetime, date
 from django.utils.html import format_html 
 from django.urls import reverse
-
 from bands.models import Band, Musician, Venue, Room
+
 class DecadeListFilter(admin.SimpleListFilter):
     title = 'decade born'
 
