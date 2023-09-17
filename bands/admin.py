@@ -62,10 +62,10 @@ class MusicianAdmin(admin.ModelAdmin):
 
 @admin.register(Band)
 class BandAdmin(admin.ModelAdmin):
-    
+
     list_display = ('id', 'last_name', 'first_name', 'birth', 'show_weekday','show_bands')
     list_filter = (DecadeListFilter, )
-    search_fields = ("last_name", "first_name", )
+    # search_fields = ("last_name", "first_name", )
     
     pass
 
