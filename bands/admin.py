@@ -8,9 +8,7 @@ from bands.models import Band, Musician, Venue, Room
 
 class DecadeListFilter(admin.SimpleListFilter):
     title = 'decade born'
-
     parameter_name = 'decade'
-
 
     def lookups(self, request, model_admin):
 
