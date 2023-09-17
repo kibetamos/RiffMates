@@ -60,8 +60,6 @@ class MusicianAdmin(admin.ModelAdmin):
     
     show_weekday.short_description = "Birth Weekday"
 
-
-
 @admin.register(Band)
 class BandAdmin(admin.ModelAdmin):
     pass
