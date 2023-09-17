@@ -1,7 +1,6 @@
 # Register your models here.
 from django.contrib import admin
 from datetime import datetime, date  
-
 from datetime import datetime, date
 from django.utils.html import format_html 
 from django.urls import reverse
