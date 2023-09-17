@@ -64,7 +64,7 @@ class MusicianAdmin(admin.ModelAdmin):
 class BandAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'last_name', 'first_name', 'birth', 'show_weekday','show_bands')
-    list_filter = (DecadeListFilter, )
+    # list_filter = (DecadeListFilter, )
     # search_fields = ("last_name", "first_name", )
     
     pass
