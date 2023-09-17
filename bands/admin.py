@@ -34,7 +34,6 @@ class DecadeListFilter(admin.SimpleListFilter):
             )
         return result
 
-
 @admin.register(Musician)
 class MusicianAdmin(admin.ModelAdmin):
     list_display = ('id', 'last_name', 'first_name', 'birth', 'show_weekday','show_bands')
