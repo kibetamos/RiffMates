@@ -7,9 +7,6 @@ from bands.models import Band, Musician, Venue
 from .forms import MusicianForm 
 
 
-
-
-
 def musician(request, musician_id):
     musician = get_object_or_404(Musician, id=musician_id) 
 
@@ -89,13 +86,14 @@ def venues(request):
 
 
 
+from .forms import MusicianForm
+
 def add_musician_view(request):
     if request.method == 'POST':
         form = MusicianForm(request.POST)
         if form.is_valid():
-            # Save the musician to the database
             musician = form.save()
-            # Redirect to the musician's detail page or any other desired page
+            # Redirect to the musician's detail page
             return render('musician_detail', id=musician.id)
     else:
         form = MusicianForm()
