@@ -5,7 +5,7 @@ from django.http import HttpResponse
 def credits(request):
     content = "Amok"
 
-    return HttpResponse(content, content_type="text/plain")
+    return render(request,'credits.html', content)
 
 
 def news(request):
