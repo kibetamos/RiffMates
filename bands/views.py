@@ -4,6 +4,11 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404 #1
 
 from bands.models import Band, Musician, Venue
+from .forms import MusicianForm 
+
+
+
+
 
 def musician(request, musician_id):
     musician = get_object_or_404(Musician, id=musician_id) 
@@ -80,3 +85,19 @@ def venues(request):
     venues = Venue.objects.all().order_by('name')
 
     return render(request, 'venue_list.html', {'venues': venues})
+
+
+
+
+def add_musician_view(request):
+    if request.method == 'POST':
+        form = MusicianForm(request.POST)
+        if form.is_valid():
+            # Save the musician to the database
+            musician = form.save()
+            # Redirect to the musician's detail page or any other desired page
+            return render('musician_detail', id=musician.id)
+    else:
+        form = MusicianForm()
+
+    return render(request, 'add_musician.html', {'form': form})
