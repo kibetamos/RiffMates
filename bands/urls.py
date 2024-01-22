@@ -2,11 +2,10 @@ from django.urls import path
 from .views import add_musician_view
 from bands import views
 # from django.urls import path
-from .views import add_musician_view, musician_detail_view
-
+from .views import add_musician_view
 urlpatterns = [
 
-    path('musician_detail/<int:id>/', musician_detail_view, name='musician_detail'),
+    # path('musician_detail/<int:id>/', musician_detail_view, name='musician_detail'),
 
     path('musician/<int:musician_id>/', views.musician, name="musician"),
 
@@ -18,7 +17,7 @@ urlpatterns = [
     
     path('venues/', views.venues, name='venue_list'),
 
-    path('add_musician/', add_musician_view, name='add_musician'),
+    path('add_musician/', add_musician_view, name='add_musician')
 
 ]
 
