@@ -99,3 +99,7 @@ def add_musician_view(request):
         form = MusicianForm()
 
     return render(request, 'add_musician.html', {'form': form})
+
+
+def musician_detail():
+    pass
