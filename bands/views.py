@@ -1,19 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-# Create your views here.
-from django.shortcuts import render, get_object_or_404 #1
-
+from django.shortcuts import redirect  # Add missing import
 from bands.models import Band, Musician, Venue
-from .forms import MusicianForm 
+from .forms import MusicianForm
 
 
 def musician(request, musician_id):
-    musician = get_object_or_404(Musician, id=musician_id) 
+    musician = get_object_or_404(Musician, id=musician_id)
 
     data = {
         "musician": musician,
-            }
-    
+    }
+
     return render(request, "musician.html", data)
 
 
@@ -25,29 +23,27 @@ def musicians(request):
     page_num = int(page_num)
 
     if page_num < 1:
-        page_num =1
+        page_num = 1
     elif page_num > paginator.num_pages:
         page_num = paginator.num_pages
 
     page = paginator.page(page_num)
 
-    data =  {
-        'musicians':page.object_list,
-        'page':page
+    data = {
+        'musicians': page.object_list,
+        'page': page
     }
 
-    return render(request,'musicians.html',data)
-
-
+    return render(request, 'musicians.html', data)
 
 
 def band(request, band_id):
-    band = get_object_or_404(Band, id=band_id) 
+    band = get_object_or_404(Band, id=band_id)
 
     data = {
         "band": band,
-            }
-    
+    }
+
     return render(request, "band.html", data)
 
 
@@ -59,23 +55,18 @@ def bands(request):
     page_num = int(page_num)
 
     if page_num < 1:
-        page_num =1
+        page_num = 1
     elif page_num > paginator.num_pages:
         page_num = paginator.num_pages
 
     page = paginator.page(page_num)
 
-    data =  {
-        'bands':page.object_list,
-        'page':page
+    data = {
+        'bands': page.object_list,
+        'page': page
     }
 
-    return render(request,'bands.html',data)
-
-    # data = {
-    #     'musicians':Musician.objects.all().order_by('last_name'),
-    #     }
-    # return render(request, "musicians.html", data)
+    return render(request, 'bands.html', data)
 
 
 def venues(request):
@@ -84,22 +75,29 @@ def venues(request):
     return render(request, 'venue_list.html', {'venues': venues})
 
 
-
-
-from .forms import MusicianForm
-
 def add_musician_view(request):
     if request.method == 'POST':
         form = MusicianForm(request.POST)
         if form.is_valid():
             musician = form.save()
             # Redirect to the musician's detail page
-            return render('musician_detail', id=musician.id)
+            return redirect('musician_detail', musician_id=musician.id)  # Corrected redirect statement
     else:
         form = MusicianForm()
 
     return render(request, 'add_musician.html', {'form': form})
 
 
-def musician_detail():
-    pass
+def musician_detail(request, musician_id):  # Added request parameter
+    musician = get_object_or_404(Musician, id=musician_id)
+
+    data = {
+        "musician": musician,
+    }
+
+    return render(request, "musician_detail.html", data)
+
+
+def home(request):
+    # Create links to the rest of your views or other relevant content
+    return render(request, "home.html")
