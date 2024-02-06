@@ -1,5 +1,5 @@
 ## Riffmates
-This is a python based music system aimed at connecting musicians
+RiffMates is a Python-based music system aimed at connecting musicians, allowing them to collaborate, share ideas, and create music together. Whether you're a solo artist looking to find collaborators for your next project or a band seeking additional members, RiffMates provides a platform for networking and collaboration within the music community.
 
 ### How to set it up 
 Set up a python vitual environment
