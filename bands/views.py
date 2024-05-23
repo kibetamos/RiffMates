@@ -100,4 +100,4 @@ def musician_detail(request, musician_id):  # Added request parameter
 
 def home(request):
     # Create links to the rest of your views or other relevant content
-    return render(request, "home.html")
+    return render(request, "index.html")
