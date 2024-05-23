@@ -100,21 +100,11 @@ def musician_detail(request, musician_id):  # Added request parameter
 
 def home(request):
     all_bands = Band.objects.all().order_by('name')
-    paginator = Paginator(all_bands, 2)
-
-    page_num = request.GET.get('page', 1)
-    page_num = int(page_num)
-
-    if page_num < 1:
-        page_num = 1
-    elif page_num > paginator.num_pages:
-        page_num = paginator.num_pages
-
-    page = paginator.page(page_num)
-
+    all_musicians = Musician.objects.all().order_by('last_name')
+    
     data = {
-        'bands': page.object_list,
-        'page': page
+        'bands': all_bands,
+        'musicians': all_musicians
     }
 
     return render(request, "index.html", data)
