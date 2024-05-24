@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('credits/', home_views.credits, name="credits"),
     path('news/', home_views.news),
+    
     path('', include("bands.urls"))
 ]

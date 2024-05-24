@@ -20,3 +20,14 @@ def news(request):
     }
 
     return render(request, "news.html", data)
+
+def Register(request):
+
+    return(request, 'login.html')
+
+
+def Login(request):
+
+    return(request, 'login.html')
+
+
