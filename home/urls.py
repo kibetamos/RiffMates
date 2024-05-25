@@ -8,5 +8,3 @@ from bands import views
 url_patterns = [
 
 ]
-
-
