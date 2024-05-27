@@ -25,6 +25,8 @@ def news(request):
     return render(request, "news.html", data)
 
 def register(request):
+    # username
+    
     content ={ 
         
         "message": "Amok"
