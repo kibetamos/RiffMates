@@ -25,8 +25,13 @@ def news(request):
     return render(request, "news.html", data)
 
 def register(request):
+    content ={ 
+        
+        "message": "Amok"
+    }
+    
 
-    return render (request, 'login.html')
+    return render (request, 'register.html', content)
 
 
 def login(request):
