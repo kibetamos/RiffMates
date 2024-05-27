@@ -3,8 +3,10 @@ from django.http import HttpResponse
 
 # Create your views here.
 def credits(request):
-    content = "Amok"
-
+    content ={ 
+        
+        "message": "Amok"
+    }
     return render(request,'credits.html', content)
 
 

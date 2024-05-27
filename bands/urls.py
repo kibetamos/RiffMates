@@ -23,7 +23,3 @@ urlpatterns = [
     path('add_musician/', add_musician_view, name='add_musician')
 
 ]
-
-# urlpatterns = [
-# path('musician/<int:musician_id>/', views.musician, name="musician"),
-# ]
