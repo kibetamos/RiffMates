@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+
 # Create your views here.
 def credits(request):
     content ={ 
@@ -23,13 +24,19 @@ def news(request):
 
     return render(request, "news.html", data)
 
-def Register(request):
+def register(request):
 
-    return(request, 'login.html')
+    return render (request, 'login.html')
 
 
-def Login(request):
+def login(request):
 
-    return(request, 'login.html')
+    content ={ 
+        
+        "message": "Amok"
+    }
+
+
+    return render (request, 'login.html',content)
 
 
