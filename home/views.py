@@ -1,6 +1,8 @@
+from importlib.resources import contents
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout 
+from .forms import SignupForm, LoginForm
 
 # Create your views here.
 def credits(request):
@@ -37,7 +39,7 @@ def register(request):
 
 
 def login(request):
-    if request.methos == 'POST':
+    if request.method == 'POST':
 
         form = LoginForm(request.POST)
 
@@ -52,13 +54,6 @@ def login(request):
     else:
         form = LoginForm()
 
-
-    # content ={ 
-        
-    #     "message": "Amok"
-    # }
-
-
-    return render (request, 'login.html',content)
+    return render (request, 'login.html', {'form': form})
 
 
