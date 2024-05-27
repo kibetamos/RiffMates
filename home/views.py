@@ -26,7 +26,7 @@ def news(request):
 
 def register(request):
     # username
-    
+
     content ={ 
         
         "message": "Amok"
@@ -37,11 +37,14 @@ def register(request):
 
 
 def login(request):
+    if request.methos == 'POST':
+        form = LoginForm(request.POST)
 
-    content ={ 
+
+    # content ={ 
         
-        "message": "Amok"
-    }
+    #     "message": "Amok"
+    # }
 
 
     return render (request, 'login.html',content)
