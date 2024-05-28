@@ -48,24 +48,32 @@ def band(request, band_id):
 
 
 def bands(request):
+    # all_bands = Band.objects.all().order_by('name')
+    # paginator = Paginator(all_bands, 2)
+
+    # page_num = request.GET.get('page', 1)
+    # page_num = int(page_num)
+
+    # if page_num < 1:
+    #     page_num = 1
+    # elif page_num > paginator.num_pages:
+    #     page_num = paginator.num_pages
+
+    # page = paginator.page(page_num)
+
+    # data = {
+    #     'bands': page.object_list,
+    #     'page': page
+    # }
     all_bands = Band.objects.all().order_by('name')
-    paginator = Paginator(all_bands, 2)
+    number_of_bands = all_bands.count()
 
-    page_num = request.GET.get('page', 1)
-    page_num = int(page_num)
-
-    if page_num < 1:
-        page_num = 1
-    elif page_num > paginator.num_pages:
-        page_num = paginator.num_pages
-
-    page = paginator.page(page_num)
-
+    
     data = {
-        'bands': page.object_list,
-        'page': page
+        'number_of_bands': number_of_bands,
+        'bands': all_bands,
+        
     }
-
     return render(request, 'bands.html', data)
 
 
