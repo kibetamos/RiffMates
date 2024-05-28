@@ -104,8 +104,11 @@ def home(request):
     all_musicians = Musician.objects.all()
     number_of_bands = all_bands.count()
     number_of_art = all_musicians.count()
+    venues = Venue.objects.all().order_by('name')
+    all_venues =  venues.count()
     
     data = {
+        'all_venues': all_venues,
         'number_of_art':  number_of_art,
         'number_of_bands': number_of_bands,
         'bands': all_bands,
