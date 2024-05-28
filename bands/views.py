@@ -100,11 +100,16 @@ def musician_detail(request, musician_id):  # Added request parameter
 
 def home(request):
     all_bands = Band.objects.all().order_by('name')
-    all_musicians = Musician.objects.all().order_by('last_name')[:6]
+    musicians = Musician.objects.all().order_by('last_name')[:6]
+    all_musicians = Musician.objects.all()
+    number_of_bands = all_bands.count()
+    number_of_art = all_musicians.count()
     
     data = {
+        'number_of_art':  number_of_art,
+        'number_of_bands': number_of_bands,
         'bands': all_bands,
-        'musicians': all_musicians
+        'musicians': musicians
     }
 
     return render(request, "index.html", data)
