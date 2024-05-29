@@ -83,6 +83,7 @@ def venues(request):
     return render(request, 'venue_list.html', {'venues': venues})
 
 
+
 def add_musician_view(request):
     if request.method == 'POST':
         form = MusicianForm(request.POST)
