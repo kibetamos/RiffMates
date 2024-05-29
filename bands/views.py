@@ -4,6 +4,26 @@ from django.shortcuts import redirect  # Add missing import
 from bands.models import Band, Musician, Venue
 from .forms import MusicianForm
 
+def home(request):
+    all_bands = Band.objects.all().order_by('name')
+    musicians = Musician.objects.all().order_by('last_name')[:6]
+    all_musicians = Musician.objects.all()
+    number_of_bands = all_bands.count()
+    number_of_art = all_musicians.count()
+    venues = Venue.objects.all().order_by('name')
+    all_venues =  venues.count()
+    
+    data = {
+        'all_venues': all_venues,
+        'number_of_art':  number_of_art,
+        'number_of_bands': number_of_bands,
+        'bands': all_bands,
+        'musicians': musicians
+    }
+
+    return render(request, "index.html", data)
+
+
 
 def musician(request, musician_id):
     musician = get_object_or_404(Musician, id=musician_id)
@@ -94,10 +114,6 @@ def venues(request):
     return render(request, 'venue_list.html', {'venues': venues})
 
 
-
-
-
-
 def musician_detail(request, musician_id):  # Added request parameter
     musician = get_object_or_404(Musician, id=musician_id)
 
@@ -108,21 +124,3 @@ def musician_detail(request, musician_id):  # Added request parameter
     return render(request, "musician_detail.html", data)
 
 
-def home(request):
-    all_bands = Band.objects.all().order_by('name')
-    musicians = Musician.objects.all().order_by('last_name')[:6]
-    all_musicians = Musician.objects.all()
-    number_of_bands = all_bands.count()
-    number_of_art = all_musicians.count()
-    venues = Venue.objects.all().order_by('name')
-    all_venues =  venues.count()
-    
-    data = {
-        'all_venues': all_venues,
-        'number_of_art':  number_of_art,
-        'number_of_bands': number_of_bands,
-        'bands': all_bands,
-        'musicians': musicians
-    }
-
-    return render(request, "index.html", data)
