@@ -36,6 +36,17 @@ def musicians(request):
 
     return render(request, 'musicians.html', data)
 
+def add_musician_view(request):
+    if request.method == 'POST':
+        form = MusicianForm(request.POST)
+        if form.is_valid():
+            musician = form.save()
+            # Redirect to the musician's detail page
+            return redirect('musician_detail', musician_id=musician.id)  # Corrected redirect statement
+    else:
+        form = MusicianForm()
+
+    return render(request, 'add_musician.html', {'form': form})
 
 def band(request, band_id):
     band = get_object_or_404(Band, id=band_id)
@@ -84,17 +95,7 @@ def venues(request):
 
 
 
-def add_musician_view(request):
-    if request.method == 'POST':
-        form = MusicianForm(request.POST)
-        if form.is_valid():
-            musician = form.save()
-            # Redirect to the musician's detail page
-            return redirect('musician_detail', musician_id=musician.id)  # Corrected redirect statement
-    else:
-        form = MusicianForm()
 
-    return render(request, 'add_musician.html', {'form': form})
 
 
 def musician_detail(request, musician_id):  # Added request parameter
