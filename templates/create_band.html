@@ -1,0 +1,17 @@
+
+
+<!-- create_band.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Band</title>
+</head>
+<body>
+    <h1>Create Band</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

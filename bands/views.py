@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.shortcuts import redirect  # Add missing import
 from bands.models import Band, Musician, Venue
-from .forms import MusicianForm
+from .forms import MusicianForm,BandForm
 
 def home(request):
     all_bands = Band.objects.all().order_by('name')
@@ -106,6 +106,21 @@ def bands(request):
         
     }
     return render(request, 'bands.html', data)
+
+
+
+def create_band(request):
+    if request.method == 'POST':
+        form = BandForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('bands')  # Redirect to a list of bands or another page
+    else:
+        form = BandForm()
+    
+    return render(request, 'create_band.html', {'form': form})
+
+
 
 
 def venues(request):

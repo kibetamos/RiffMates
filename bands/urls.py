@@ -1,7 +1,7 @@
 from django.urls import path
 from bands import views
 # from django.urls import path
-from .views import add_musician_view, musician_detail, home
+from .views import add_musician_view, musician_detail, home, create_band
 
 
 urlpatterns = [
@@ -20,6 +20,8 @@ urlpatterns = [
     
     path('venues/', views.venues, name='venue_list'),
 
-    path('add_musician/', add_musician_view, name='add_musician')
+    path('add_musician/', add_musician_view, name='add_musician'),
+
+    path('create_band/', create_band, name='create_band')
 
 ]
