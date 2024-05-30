@@ -177,30 +177,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-md-7 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="clearfix">
-                      <h4 class="card-title float-start">Visit And Sales Statistics</h4>
-                      <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-end"></div>
-                    </div>
-                    <canvas id="visit-sale-chart" class="mt-4"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-5 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Traffic Sources</h4>
-                    <div class="doughnutjs-wrapper d-flex justify-content-center">
-                      <canvas id="traffic-chart"></canvas>
-                    </div>
-                    <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
+
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
@@ -239,12 +216,38 @@
                       </table>
                       <div class="add-items d-flex">
                         <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
-                        <button href = "%{ url 'home' %}" class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
+
                       </div>
                     </div>
+                    <!-- <nav>
+                      <a class="nav-link" href="{% url 'create_band' %}">
+                          <span class="menu-title">Band</span>
+                          <i class="mdi mdi-home menu-icon"></i>
+                      </a>
+                  </nav> -->
+                    <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" >
+                      <!-- <a href="{% url 'create_band' %}" class="btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">Add</a> -->
+                      <li class="nav-item">
+                        <!-- <a class="nav-link" href="{% url 'create_band' %}">
+                          <span class="menu-title">Band</span>
+                          <i class="mdi mdi-home menu-icon"></i>
+                        </a> -->
+                      </button>
+                        <nav>
+                          <a class="nav-link" href="{% url 'create_band' %}">
+                              <span class="menu-title">Band</span>
+                              <i class="mdi mdi-home menu-icon"></i>
+                          </a>
+                      </nav>
+                      <!-- </li> -->
+
+                                         
                   </div>
+                  
                 </div>
+                
               </div>
+              
             </div>
             
           </div>
