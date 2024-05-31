@@ -32,7 +32,9 @@ class Band(models.Model):
     
     musicians = models.ManyToManyField(Musician)
     
+    # def __str__(self):
+    #     return f"Band(id={self.id}, name={self.name})"
     def __str__(self):
-        return f"Band(id={self.id}, name={self.name})"
+        return self.name
 
 

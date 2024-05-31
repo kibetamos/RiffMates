@@ -3,6 +3,8 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect  # Add missing import
 from bands.models import Band, Musician, Venue
 from .forms import MusicianForm,BandForm
+from django.utils.html import format_html 
+from django.urls import reverse
 
 def home(request):
     all_bands = Band.objects.all().order_by('name')
@@ -36,28 +38,23 @@ def musician(request, musician_id):
 
 
 def musicians(request):
+    # Query all musicians ordered by last name
     all_musicians = Musician.objects.all().order_by('last_name')
-    musicians = Musician.objects.all().order_by('last_name')[:6]
-    all_musicians = Musician.objects.all()
-    # paginator = Paginator(all_musicians, 2)
-    all_musicians = Musician.objects.all().count()
+    
+    # Get the first 6 musicians for the initial display
+    musicians = all_musicians
+    
+    # Count all musicians
+    musicians_count = all_musicians.count()
 
-    # page_num = request.GET.get('page', 1)
-    # page_num = int(page_num)
-
-    # if page_num < 1:
-    #     page_num = 1
-    # elif page_num > paginator.num_pages:
-    #     page_num = paginator.num_pages
-
-    # page = paginator.page(page_num)
-
+    # Prepare data to be passed to the template
     data = {
-        'all_musicians': all_musicians,
-        'musicians': musicians
+        'all_musicians_count': musicians_count,
+        'musicians': musicians,
     }
 
     return render(request, 'musicians.html', data)
+
 
 def add_musician_view(request):
     if request.method == 'POST':
