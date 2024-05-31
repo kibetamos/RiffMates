@@ -39,7 +39,7 @@ def musician(request, musician_id):
 
 def musicians(request):
     # Query all musicians ordered by last name
-    all_musicians = Musician.objects.all().order_by('last_name')
+    all_musicians = Musician.objects.all().order_by('id')
     
     # Get the first 6 musicians for the initial display
     musicians = all_musicians[:6]
