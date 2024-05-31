@@ -42,7 +42,7 @@ def musicians(request):
     all_musicians = Musician.objects.all().order_by('last_name')
     
     # Get the first 6 musicians for the initial display
-    musicians = all_musicians
+    musicians = all_musicians[:6]
     
     # Count all musicians
     musicians_count = all_musicians.count()
