@@ -189,6 +189,7 @@
                           <tr>
                             <th> ID </th>
                             <th> Name</th>
+                            <th> Musicians</th>
                             <!-- <th> Status </th>
                             <th> Last Update </th>
                             <th> Tracking ID </th> -->
@@ -203,6 +204,9 @@
                             </td>
                             <td>
                               {{band.name}}
+                            </td>
+                            <td>
+                              {{band.musicians.count}}
                             </td>
                             {% endfor %}
                             <!-- <td> Fund is not recieved </td> -->
