@@ -37,21 +37,24 @@ def musician(request, musician_id):
 
 def musicians(request):
     all_musicians = Musician.objects.all().order_by('last_name')
-    paginator = Paginator(all_musicians, 2)
+    musicians = Musician.objects.all().order_by('last_name')[:6]
+    all_musicians = Musician.objects.all()
+    # paginator = Paginator(all_musicians, 2)
+    all_musicians = Musician.objects.all().count()
 
-    page_num = request.GET.get('page', 1)
-    page_num = int(page_num)
+    # page_num = request.GET.get('page', 1)
+    # page_num = int(page_num)
 
-    if page_num < 1:
-        page_num = 1
-    elif page_num > paginator.num_pages:
-        page_num = paginator.num_pages
+    # if page_num < 1:
+    #     page_num = 1
+    # elif page_num > paginator.num_pages:
+    #     page_num = paginator.num_pages
 
-    page = paginator.page(page_num)
+    # page = paginator.page(page_num)
 
     data = {
-        'musicians': page.object_list,
-        'page': page
+        'all_musicians': all_musicians,
+        'musicians': musicians
     }
 
     return render(request, 'musicians.html', data)

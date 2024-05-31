@@ -150,9 +150,9 @@
                 <div class="card bg-gradient-danger card-img-holder text-white">
                   <div class="card-body">
                     <img src="{% static 'assets/images/dashboard/circle.svg'  %}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Bands <i class="mdi mdi-chart-line mdi-24px float-end"></i>
+                    <h4 class="font-weight-normal mb-3">Musicians <i class="mdi mdi-chart-line mdi-24px float-end"></i>
                     </h4>
-                    <h2 class="mb-5">{{ number_of_bands }}</h2>
+                    <h2 class="mb-5">{{ all_musicians }}</h2>
                     <h6 class="card-text">Increased by 60%</h6>
                   </div>
                 </div>
@@ -191,22 +191,31 @@
                         <thead>
                           <tr>
                             <th> ID </th>
-                            <th> Name</th>
-                            <!-- <th> Status </th>
+                            <th> FName</th>
+                            <th> LName </th>
                             <th> Last Update </th>
-                            <th> Tracking ID </th> -->
+                            <th> Tracking ID </th>
                           </tr>
                         </thead>
                         <tbody>
-                          {% for band in bands %}
+                          {% for band in musicians %}
                           <tr>
                             
                             <td>
                               {{band.id}}
                             </td>
                             <td>
-                              {{band.name}}
+                              {{band.last_name}}
                             </td>
+                            <td>
+                                {{band.first_name}}
+                              </td>
+                              <td>
+                                {{band.birth}}
+                              </td>
+                              <td>
+                                {{band.bands}}
+                              </td>
                             {% endfor %}
                             <!-- <td> Fund is not recieved </td> -->
                             <!-- <td>
