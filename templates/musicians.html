@@ -193,8 +193,8 @@
                             <th> ID </th>
                             <th> FName</th>
                             <th> LName </th>
-                            <th> Last Update </th>
-                            <th> Tracking ID </th>
+                            <th> Date </th>
+                            <th> Bands </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -211,21 +211,14 @@
                                 {{musician.first_name}}
                               </td>
                               <td>
-                                {{band.birth}}
+                                {{musician.birth}}
                               </td>
+                              <!-- For each musician, it counts the number of associated bands using musician.band_set.count. 
+                              This directly uses Django's reverse relationship manager to count the related bands. -->
                               <td>
-                                <ul>
-                                  {% if musician.band_set.exists %}
-                                  <ul>
-                                      {% for band in musician.band_set.all %}
-                                      <li>{{ band.name }}</li>
-                                      {% endfor %}
-                                  </ul>
-                              {% else %}
-                                  <i>None</i>
-                              {% endif %}
-                              </ul>
+                                {{musician.band_set.count}}
                               </td>
+                              
                             {% endfor %}
                             <!-- <td> Fund is not recieved </td> -->
                             <!-- <td>
