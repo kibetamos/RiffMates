@@ -28,14 +28,16 @@ def news(request):
 
 def register(request):
     # username
-
-    content ={ 
-        
-        "message": "Amok"
-    }
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = SignupForm()
     
 
-    return render (request, 'register.html', content)
+    return render (request, 'register.html',{'form': form})
 
 
 def login(request):
@@ -57,3 +59,7 @@ def login(request):
     return render (request, 'login.html', {'form': form})
 
 
+# logout page
+def user_logout(request):
+    logout(request)
+    return redirect('login')
