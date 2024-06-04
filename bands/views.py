@@ -5,7 +5,7 @@ from bands.models import Band, Musician, Venue
 from .forms import MusicianForm,BandForm
 from django.utils.html import format_html 
 from django.urls import reverse
-
+from home.views import login
 def home(request):
     all_bands = Band.objects.all().order_by('name')
     musicians = Musician.objects.all().order_by('last_name')[:6]
@@ -47,7 +47,7 @@ def musicians(request):
     # Count all musicians
     musicians_count = all_musicians.count()
 
-    # Prepare data to be passed to the template
+    # Prepasdsre data to be passed to the template
     data = {
         'all_musicians_count': musicians_count,
         'musicians': musicians,
@@ -77,7 +77,7 @@ def band(request, band_id):
 
     return render(request, "band.html", data)
 
-
+# @login
 def bands(request):
     # all_bands = Band.objects.all().order_by('name')
     # paginator = Paginator(all_bands, 2)
