@@ -6,7 +6,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from .forms import SignupForm, LoginForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
-
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def credits(request):
@@ -31,21 +32,36 @@ def news(request):
     return render(request, "news.html", data)
 
 def register(request):
-    # username
     if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = SignupForm()
-    
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        country = request.POST.get('country')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        terms = request.POST.get('terms')
 
-    return render (request, 'register.html',{'form': form})
+        if not all([username, email, country, password1, password2, terms]):
+            messages.error(request, 'Please fill out all fields.')
+        elif password1 != password2:
+            messages.error(request, 'Passwords do not match.')
+        else:
+            try:
+                user = User.objects.create(
+                    username=username,
+                    email=email,
+                    password=make_password(password1)
+                )
+                # Here you can also save the country information to the user's profile if you have one
+                auth_login(request, user)
+                messages.success(request, 'Registration successful')
+                return redirect('home')
+            except Exception as e:
+                messages.error(request, f'Error: {e}')
+    return render (request, 'register.html')
 
 
 def login(request):
-    
+
     if request.method == 'POST':
 
         username = request.POST.get('username', '')
