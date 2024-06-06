@@ -76,7 +76,7 @@
                 </div>
                 
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black">Amok</p>
+                  <p class="mb-1 text-black">{{user.username}}</p>
                 </div>
                 
               </a>
@@ -84,7 +84,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{% url 'logout' %}">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
@@ -123,8 +123,8 @@
                   <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
-                  <span class="font-weight-bold mb-2">David Grey. H</span>
-                  <span class="text-secondary text-small">Project Manager</span>
+                  <span class="font-weight-bold mb-2">{{user.username}}</span>
+                  <span class="text-secondary text-small">{{user.username}}</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
               </a>
