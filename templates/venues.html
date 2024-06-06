@@ -201,21 +201,21 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Bands</h4>
+                    <h4 class="card-title">Venues</h4>
                     <div class="table-responsive">
                       <table class="table">
                         <thead>
                           <tr>
                             <th> ID </th>
                             <th> Name</th>
-                            <th> Musicians</th>
+                            <!-- <th> Musicians</th> -->
                             <!-- <th> Status </th>
                             <th> Last Update </th>
                             <th> Tracking ID </th> -->
                           </tr>
                         </thead>
                         <tbody>
-                          {% for band in bands %}
+                          {% for band in venue %}
                           <tr>
                             
                             <td>
@@ -223,9 +223,6 @@
                             </td>
                             <td>
                               {{band.name}}
-                            </td>
-                            <td>
-                              {{band.musicians.count}}
                             </td>
                             {% endfor %}
                             <!-- <td> Fund is not recieved </td> -->

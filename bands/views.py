@@ -127,9 +127,16 @@ def create_band(request):
 
 
 def venues(request):
+    
     venues = Venue.objects.all().order_by('name')
+    all_venues =  venues.count()
 
-    return render(request, 'venues.html', {'venues': venues})
+    data = {
+        "venue": venues,
+        'all_venues':all_venues
+    }
+
+    return render(request, 'venues.html', data)
 
 
 def musician_detail(request, musician_id):  # Added request parameter
