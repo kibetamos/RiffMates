@@ -6,6 +6,9 @@ from .forms import MusicianForm,BandForm
 from django.utils.html import format_html 
 from django.urls import reverse
 from home.views import login
+
+
+
 def home(request):
     all_bands = Band.objects.all().order_by('name')
     musicians = Musician.objects.all().order_by('last_name')[:6]
