@@ -24,6 +24,6 @@ urlpatterns = [
     path('create_band/', create_band, name='create_band'),
 
 
-    path('venues/', views.venues, name='venue_list')
+    path('venues/', views.venues, name='venues')
 
 ]
