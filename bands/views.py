@@ -138,6 +138,17 @@ def venues(request):
 
     return render(request, 'venues.html', data)
 
+def rooms(request):
+    
+    rooms = rooms.objects.all().order_by('name')
+    all_venues =  venues.count()
+
+    data = {
+        "venue": venues,
+        'all_venues':all_venues
+    }
+
+    return render(request, 'venues.html', data)
 
 def musician_detail(request, musician_id):  # Added request parameter
     musician = get_object_or_404(Musician, id=musician_id)

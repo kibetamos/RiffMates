@@ -14,6 +14,8 @@ class Room(models.Model):
 
     class Meta: 
         unique_together = [["name", "venue"]]
+
+        
 # alternate short-cut version as there is only one "uniqueness"
 # unique_together = ["name", "venue"]
     def __str__(self):
