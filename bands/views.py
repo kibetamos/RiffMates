@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.shortcuts import redirect  # Add missing import
-from bands.models import Band, Musician, Venue
+from bands.models import Band, Musician, Venue, Room
 from .forms import MusicianForm,BandForm
 from django.utils.html import format_html 
 from django.urls import reverse
@@ -140,15 +140,15 @@ def venues(request):
 
 def rooms(request):
     
-    rooms = rooms.objects.all().order_by('name')
-    all_venues =  venues.count()
+    rooms = Room.objects.all().order_by('name')
+    all_rooms =  rooms.count()
 
     data = {
-        "venue": venues,
-        'all_venues':all_venues
+        "room": rooms,
+        'all_rooms':all_rooms
     }
 
-    return render(request, 'venues.html', data)
+    return render(request, 'rooms.html', data)
 
 def musician_detail(request, musician_id):  # Added request parameter
     musician = get_object_or_404(Musician, id=musician_id)
