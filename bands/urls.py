@@ -1,7 +1,7 @@
 from django.urls import path
 from bands import views
 # from django.urls import path
-from .views import add_musician_view, musician_detail, home, create_band
+from .views import add_musician_view, musician_detail, home, create_band, rooms
 
 
 urlpatterns = [
@@ -24,6 +24,8 @@ urlpatterns = [
     path('create_band/', create_band, name='create_band'),
 
 
-    path('venues/', views.venues, name='venues')
+    path('venues/', views.venues, name='venues'),
+
+    path('rooms/', views.rooms, name='rooms')
 
 ]

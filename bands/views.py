@@ -150,6 +150,8 @@ def rooms(request):
 
     return render(request, 'rooms.html', data)
 
+
+
 def musician_detail(request, musician_id):  # Added request parameter
     musician = get_object_or_404(Musician, id=musician_id)
 
