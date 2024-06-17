@@ -12,6 +12,7 @@ class Venue(models.Model):
 class Room(models.Model):
     name = models.CharField(max_length=20)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta: 
         unique_together = [["name", "venue"]]
