@@ -1,13 +1,16 @@
 from django.db import models
 
+
+from django.core.validators import MinValueValidator
 # Create your models here.]
 
 class Venue(models.Model):
     name = models.CharField(max_length=20)
+    location = models.CharField(max_length=100)
 
 
     def __str__(self):
-        return f"Venue(id={self.id}, name={self.name})"
+        return self.name
 
 class Room(models.Model):
     name = models.CharField(max_length=100)
@@ -17,9 +20,6 @@ class Room(models.Model):
 
     def __str__(self):
         return f"{self.name} at {self.venue.name}"
-    
-    class Meta: 
-        unique_together = [["name", "venue"]]
 
         
 # alternate short-cut version as there is only one "uniqueness"
