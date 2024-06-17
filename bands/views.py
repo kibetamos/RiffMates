@@ -140,7 +140,7 @@ def venues(request):
 
 def rooms(request):
     
-    rooms = Room.objects.all().order_by('name')
+    rooms = Room.objects.all()
     all_rooms =  rooms.count()
 
     data = {
