@@ -8,7 +8,6 @@ class Venue(models.Model):
     name = models.CharField(max_length=20)
     location = models.CharField(max_length=100)
 
-
     def __str__(self):
         return self.name
 
@@ -48,3 +47,13 @@ class Musician(models.Model):
 
     class Meta:
         ordering = ["last_name", "first_name"]
+
+
+
+class Performance(models.Model):
+    band = models.ForeignKey(Band, on_delete=models.CASCADE)
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
+    date = models.DateField()
+
+    def __str__(self):
+        return f"{self.band.name} at {self.venue.name} on {self.date}"
