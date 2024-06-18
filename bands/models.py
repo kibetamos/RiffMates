@@ -1,5 +1,5 @@
-from django.db import models
-from django.core.validators import MinValueValidator
+from django.db import models # type: ignore
+from django.core.validators import MinValueValidator # type: ignore
 # Create your models here.]
 
 
@@ -11,8 +11,7 @@ class Band(models.Model):
     #     return f"Band(id={self.id}, name={self.name})"
     def __str__(self):
         return self.name
-
-
+    
 
 class Musician(models.Model):
     first_name = models.CharField(max_length=50)
