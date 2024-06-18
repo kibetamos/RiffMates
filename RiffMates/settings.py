@@ -142,3 +142,11 @@ STATIC_URL = '/static/'
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
 # ]
+
+
+
+MPESA_CONSUMER_KEY = 'q8tf7jLLVJnCpTmsdnhCpwNwFPZxRY9CSZRZRGbysUARrDQv'
+MPESA_CONSUMER_SECRET = 'AmhuU2OUso0pZgKAmd9eMeYJvodCWG5TtHwNIalgGAYAJWocTzAlC4fgWuU23PkJ'
+MPESA_SHORTCODE = 'RIFF-'
+MPESA_PASSKEY = 'your_passkey'
+MPESA_BASE_URL = 'https://sandbox.safaricom.co.ke'  # Use 'https://api.safaricom.co.ke' for production
