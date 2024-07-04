@@ -1,13 +1,17 @@
 from django.urls import path
 from bands import views
 # from django.urls import path
-from .views import add_musician_view, musician_detail, home, create_band, rooms
+from .views import add_musician_view, musician_detail, home, create_band, rooms, stk_push_callback
 
 
 urlpatterns = [
+    
+    path('', views.index, name='index'),
+
+    path('daraja/stk-push', views.stk_push_callback, name='mpesa_stk_push_callback'),
 
     path('', home, name='home'),
-
+    
     path('musicians/', views.musicians, name="musicians"),
 
     path(' 1', add_musician_view, name='add_musician'),
@@ -28,6 +32,7 @@ urlpatterns = [
 
     path('rooms/', views.rooms, name='rooms'),
 
-    path('pay/<int:room_id>/', views.pay, name='pay')
+    path('pay/<int:room_id>/', views.pay, name='pay'),
+    path('success/', views.success, name='success')
 
 ]

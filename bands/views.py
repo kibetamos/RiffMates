@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+from django_daraja.mpesa.core import MpesaClient
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.shortcuts import redirect  # Add missing import
@@ -7,6 +9,24 @@ from django.utils.html import format_html
 from django.urls import reverse
 from home.views import login
 
+
+
+
+def index(request):
+    cl = MpesaClient()
+    # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+    phone_number = '0727824180'
+    amount = 1
+    account_reference = 'reference'
+    transaction_desc = 'Description'
+    callback_url = 'https://darajambili.herokuapp.com/express-payment';
+    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return HttpResponse(response)
+
+def stk_push_callback(request):
+        data = request.body
+        
+        return HttpResponse("STK Push in Django👋")
 
 
 def home(request):
@@ -174,5 +194,9 @@ def pay(request, room_id):
     if request.method == 'POST':
         # Handle the payment logic here
         # For example, process payment and update room status
-        return redirect('some_success_page')  # Redirect to a success page
+        return redirect('success')  # Redirect to a success page
     return render(request, 'pay.html', {'room': room})
+
+
+def success(request):
+    return render(request, 'success.html')
