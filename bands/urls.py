@@ -28,4 +28,6 @@ urlpatterns = [
 
     path('rooms/', views.rooms, name='rooms')
 
+    path('pay/<int:room_id>/', views.pay, name='pay'),
+
 ]

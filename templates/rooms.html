@@ -187,6 +187,7 @@
                             <th> ID </th>
                             <th> Name</th>
                             <th> Price</th>
+                            <th> Pay</th>
                             <!-- <th> Status </th>
                             <th> Last Update </th>
                             <th> Tracking ID </th> -->
@@ -204,6 +205,12 @@
                             </td>
                             <td>
                               {{room.price}}
+                            </td>
+                            <td>
+                              <form action="{% url 'pay' room.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Pay</button>
+                              </form>
                             </td>
                             {% endfor %}
                             <!-- <td> Fund is not recieved </td> -->

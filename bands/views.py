@@ -145,7 +145,7 @@ def rooms(request):
 
     data = {
         "room": rooms,
-        
+
         'all_rooms':all_rooms
     }
 
@@ -166,3 +166,13 @@ def musician_detail(request, musician_id):  # Added request parameter
 # def venues(request):
 
 #     return render(request, 'venues.html')
+
+
+
+def pay(request, room_id):
+    room = get_object_or_404(Room, id=room_id)
+    if request.method == 'POST':
+        # Handle the payment logic here
+        # For example, process payment and update room status
+        return redirect('some_success_page')  # Redirect to a success page
+    return render(request, 'pay.html', {'room': room})
