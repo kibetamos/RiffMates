@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django_daraja.mpesa.core import MpesaClient
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
@@ -12,21 +12,18 @@ from home.views import login
 
 
 
-def index(request):
-    cl = MpesaClient()
-    # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
-    phone_number = '0727824180'
-    amount = 1
-    account_reference = 'reference'
-    transaction_desc = 'Description'
-    callback_url = 'https://darajambili.herokuapp.com/express-payment';
-    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-    return HttpResponse(response)
+# def index(request):
+#     cl = MpesaClient()
+#     # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+#     phone_number = '0727824180'
+#     amount = 1
+#     account_reference = 'reference'
+#     transaction_desc = 'Description'
+#     callback_url = 'https://darajambili.herokuapp.com/express-payment';
+#     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+#     return HttpResponse(response)
 
-def stk_push_callback(request):
-        data = request.body
-        
-        return HttpResponse("STK Push in Django👋")
+
 
 
 def home(request):
@@ -172,6 +169,22 @@ def rooms(request):
     return render(request, 'rooms.html', data)
 
 
+def initiate_payment(request, room_id):
+    cl = MpesaClient()
+    phone_number = '0727824180'
+    room = Room.objects.get(id=room_id)
+    amount = room.price
+    account_reference = 'reference'
+    transaction_desc = 'Description'
+    callback_url = 'https://darajambili.herokuapp.com/express-payment'
+    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return JsonResponse(response)
+
+def stk_push_callback(request):
+        
+        data = request.body
+        
+        return HttpResponse("STK Push in Django👋")
 
 def musician_detail(request, musician_id):  # Added request parameter
     musician = get_object_or_404(Musician, id=musician_id)
@@ -188,7 +201,6 @@ def musician_detail(request, musician_id):  # Added request parameter
 #     return render(request, 'venues.html')
 
 
-
 def pay(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     if request.method == 'POST':
@@ -200,3 +212,5 @@ def pay(request, room_id):
 
 def success(request):
     return render(request, 'success.html')
+
+

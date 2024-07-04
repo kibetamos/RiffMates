@@ -6,9 +6,11 @@ from .views import add_musician_view, musician_detail, home, create_band, rooms,
 
 urlpatterns = [
     
-    path('', views.index, name='index'),
+    # path('', views.index, name='index'),
 
-    path('daraja/stk-push', views.stk_push_callback, name='mpesa_stk_push_callback'),
+   path('pay/<int:room_id>/', views.initiate_payment, name='initiate_payment'),
+
+    path('stk-push-callback/', views.stk_push_callback, name='stk_push_callback'),
 
     path('', home, name='home'),
     

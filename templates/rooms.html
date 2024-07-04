@@ -207,11 +207,11 @@
                               {{room.price}}
                             </td>
                             <td>
-                              <form action="{% url 'pay' room.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">Pay</button>
+                              <form action="{% url 'initiate_payment' room.id %}" method="post">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn btn-primary">Pay</button>
                               </form>
-                            </td>
+                          </td>
                             {% endfor %}
                             <!-- <td> Fund is not recieved </td> -->
                             <!-- <td>
