@@ -173,7 +173,9 @@ def initiate_payment(request, room_id):
     cl = MpesaClient()
     phone_number = '0727824180'
     room = Room.objects.get(id=room_id)
-    amount = room.price
+    
+    # amount = room.price
+    amount = int(room.price)
     account_reference = 'reference'
     transaction_desc = 'Description'
     callback_url = 'https://darajambili.herokuapp.com/express-payment'
