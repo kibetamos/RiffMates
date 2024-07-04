@@ -26,8 +26,8 @@ urlpatterns = [
 
     path('venues/', views.venues, name='venues'),
 
-    path('rooms/', views.rooms, name='rooms')
+    path('rooms/', views.rooms, name='rooms'),
 
-    path('pay/<int:room_id>/', views.pay, name='pay'),
+    path('pay/<int:room_id>/', views.pay, name='pay')
 
 ]
