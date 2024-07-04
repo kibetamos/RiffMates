@@ -145,6 +145,7 @@ def rooms(request):
 
     data = {
         "room": rooms,
+        
         'all_rooms':all_rooms
     }
 
