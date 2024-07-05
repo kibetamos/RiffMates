@@ -180,7 +180,18 @@ def initiate_payment(request, room_id):
     transaction_desc = 'Description'
     callback_url = 'https://darajambili.herokuapp.com/express-payment'
     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-    return JsonResponse(response)
+
+    response_data = {
+        'MerchantRequestID': response.MerchantRequestID,
+        'CheckoutRequestID': response.CheckoutRequestID,
+        'ResponseCode': response.ResponseCode,
+        'ResponseDescription': response.ResponseDescription,
+        'CustomerMessage': response.CustomerMessage
+    }
+
+    return JsonResponse(response_data, safe=False)
+
+    # return JsonResponse({'response': response}, safe=False)
 
 def stk_push_callback(request):
         
