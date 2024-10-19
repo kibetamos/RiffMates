@@ -3,6 +3,10 @@
   
   Whether you’re a solo artist seeking collaborators for your next project or a band looking for additional members, RiffMates provides a platform for networking and collaboration within the music community.
 
+### CI/CD and DevOps
+RiffMates integrates a Continuous Integration and Continuous Deployment (CI/CD) pipeline, which automates the testing and deployment of the application using GitHub Actions. 
+This ensures that every code change is automatically tested, allowing for rapid feedback and minimizing integration issues.
+
 ### Key Features
 
 1. User Registration and Authentication: 
