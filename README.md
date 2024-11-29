@@ -9,7 +9,6 @@
 
 - By embracing DevOps practices, RiffMates fosters collaboration between development and operations teams, streamlining the development lifecycle and improving the overall efficiency of the project. This approach enhances code quality, accelerates delivery times, and ultimately provides a better user experience.
 
-
 ### Key Features
 
 1. User Registration and Authentication: 
