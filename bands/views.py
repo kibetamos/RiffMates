@@ -1,229 +1,191 @@
+# Standard library imports
 from django.http import HttpResponse, JsonResponse
-from django_daraja.mpesa.core import MpesaClient
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
-from django.shortcuts import redirect  # Add missing import
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+# Third-party imports
+from django_daraja.mpesa.core import MpesaClient
+
+# Local imports
 from bands.models import Band, Musician, Venue, Room
-from .forms import MusicianForm,BandForm
-from django.utils.html import format_html 
-from django.urls import reverse
-from home.views import login
+from .forms import MusicianForm, BandForm
 
 
-
-
-# def index(request):
-#     cl = MpesaClient()
-#     # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
-#     phone_number = '0727824180'
-#     amount = 1
-#     account_reference = 'reference'
-#     transaction_desc = 'Description'
-#     callback_url = 'https://darajambili.herokuapp.com/express-payment';
-#     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-#     return HttpResponse(response)
-
-
-
-
+@login_required
 def home(request):
-    all_bands = Band.objects.all().order_by('name')
-    musicians = Musician.objects.all().order_by('last_name')[:6]
-    all_musicians = Musician.objects.all()
-    number_of_bands = all_bands.count()
-    number_of_art = all_musicians.count()
-    venues = Venue.objects.all().order_by('name')
-    all_venues =  venues.count()
+    """
     
-    data = {
-        'all_venues': all_venues,
-        'number_of_art':  number_of_art,
-        'number_of_bands': number_of_bands,
-        'bands': all_bands,
-        'musicians': musicians
+        Homepage view showing bands, musicians, and venue counts.
+    
+    """
+    context = {
+        'bands': Band.objects.all().order_by('name'),
+        'featured_musicians': Musician.objects.all().order_by('last_name')[:6],
+        'band_count': Band.objects.count(),
+        'musician_count': Musician.objects.count(),
+        'venue_count': Venue.objects.count(),
     }
-
-    return render(request, "index.html", data)
-
+    return render(request, "index.html", context)
 
 
-def musician(request, musician_id):
+@login_required
+def musician_detail(request, musician_id):
+    """
+    
+        Detail view for a single musician.
+    
+    """
     musician = get_object_or_404(Musician, id=musician_id)
-
-    data = {
-        "musician": musician,
-    }
-
-    return render(request, "musician.html", data)
+    return render(request, "musician/musician_detail.html", {'musician': musician})
 
 
+@login_required
 def musicians(request):
-    # Query all musicians ordered by last name
-    all_musicians = Musician.objects.all().order_by('id')
+    """
     
-    # Get the first 6 musicians for the initial display
-    musicians = all_musicians[:6]
+        List view for all musicians with pagination.
     
-    # Count all musicians
-    musicians_count = all_musicians.count()
+    """
+    musician_list = Musician.objects.all().order_by('last_name')
+    paginator = Paginator(musician_list, 10)  # Show 10 musicians per page
+    
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'musician/musicians.html', {
+        'page_obj': page_obj,
+        'total_musicians': musician_list.count()
+    })
 
-    # Prepasdsre data to be passed to the template
-    data = {
-        'all_musicians_count': musicians_count,
-        'musicians': musicians,
-    }
 
-    return render(request, 'musicians.html', data)
-
-
-def add_musician_view(request):
+@login_required
+def add_musician(request):
+    """
+    
+        View for adding a new musician.
+    
+    """
     if request.method == 'POST':
         form = MusicianForm(request.POST)
         if form.is_valid():
             musician = form.save()
-            # Redirect to the musician's detail page
-            return redirect('musician_detail', musician_id=musician.id)  # Corrected redirect statement
+            messages.success(request, 'Musician added successfully!')
+            return redirect('musician_detail', musician_id=musician.id)
     else:
         form = MusicianForm()
 
-    return render(request, 'add_musician.html', {'form': form})
+    return render(request, 'musician/add_musician.html', {'form': form})
 
-def band(request, band_id):
-    band = get_object_or_404(Band, id=band_id)
 
-    data = {
-        "band": band,
-    }
-
-    return render(request, "band.html", data)
-
-# @login
-def bands(request):
-    # all_bands = Band.objects.all().order_by('name')
-    # paginator = Paginator(all_bands, 2)
-
-    # page_num = request.GET.get('page', 1)
-    # page_num = int(page_num)
-
-    # if page_num < 1:
-    #     page_num = 1
-    # elif page_num > paginator.num_pages:
-    #     page_num = paginator.num_pages
-
-    # page = paginator.page(page_num)
-
-    # data = {
-    #     'bands': page.object_list,
-    #     'page': page
-    # }
-    all_bands = Band.objects.all().order_by('name')
-    number_of_bands = all_bands.count()
-
+@login_required
+def band_detail(request, band_id):
+    """
     
-    data = {
-        'number_of_bands': number_of_bands,
-        'bands': all_bands,
-        
-    }
-    return render(request, 'bands.html', data)
+        Detail view for a single band.
+    
+    """
+    band = get_object_or_404(Band, id=band_id)
+    return render(request, "band/band_detail.html", {'band': band})
 
 
+@login_required
+def bands(request):
+    """
+    
+        List view for all bands.
+    
+    """
+    return render(request, 'band/bands.html', {
+        'bands': Band.objects.all().order_by('name'),
+        'band_count': Band.objects.count()
+    })
 
+
+@login_required
 def create_band(request):
+    """
+        View for creating a new band.
+    
+    """
     if request.method == 'POST':
         form = BandForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('bands')  # Redirect to a list of bands or another page
+            messages.success(request, 'Band created successfully!')
+            return redirect('bands')
     else:
         form = BandForm()
     
-    return render(request, 'create_band.html', {'form': form})
+    return render(request, 'band/create_band.html', {'form': form})
 
 
-
-
+@login_required
 def venues(request):
+    """
+        List view for all venues.
     
-    venues = Venue.objects.all().order_by('name')
-    all_venues =  venues.count()
+    """
+    return render(request, 'venue/venues.html', {
+        'venues': Venue.objects.all().order_by('name'),
+        'venue_count': Venue.objects.count()
+    })
 
-    data = {
-        "venue": venues,
-        'all_venues':all_venues
-    }
 
-    return render(request, 'venues.html', data)
-
+@login_required
 def rooms(request):
-    
-    rooms = Room.objects.all()
-    all_rooms =  rooms.count()
-
-    data = {
-        "room": rooms,
-
-        'all_rooms':all_rooms
-    }
-
-    return render(request, 'rooms.html', data)
+    """List view for all rooms."""
+    return render(request, 'room/rooms.html', {
+        'rooms': Room.objects.all(),
+        'room_count': Room.objects.count()
+    })
 
 
+@login_required
 def initiate_payment(request, room_id):
-    cl = MpesaClient()
-    phone_number = '0727824180'
-    room = Room.objects.get(id=room_id)
+    """Initiate M-Pesa payment for a room."""
+    try:
+        room = get_object_or_404(Room, id=room_id)
+        cl = MpesaClient()
+        
+        # In production, get phone number from user profile or form
+        response = cl.stk_push(
+            phone_number='0727824180',
+            amount=int(room.price),
+            account_reference='Room Booking',
+            transaction_desc=f'Payment for {room.name}',
+            callback_url='https://darajambili.herokuapp.com/express-payment'
+        )
+        
+        return JsonResponse({
+            'MerchantRequestID': response.MerchantRequestID,
+            'CheckoutRequestID': response.CheckoutRequestID,
+            'ResponseCode': response.ResponseCode,
+            'ResponseDescription': response.ResponseDescription,
+            'CustomerMessage': response.CustomerMessage
+        })
     
-    # amount = room.price
-    amount = int(room.price)
-    account_reference = 'reference'
-    transaction_desc = 'Description'
-    callback_url = 'https://darajambili.herokuapp.com/express-payment'
-    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
 
-    response_data = {
-        'MerchantRequestID': response.MerchantRequestID,
-        'CheckoutRequestID': response.CheckoutRequestID,
-        'ResponseCode': response.ResponseCode,
-        'ResponseDescription': response.ResponseDescription,
-        'CustomerMessage': response.CustomerMessage
-    }
 
-    return JsonResponse(response_data, safe=False)
-
-    # return JsonResponse({'response': response}, safe=False)
-
+@login_required
 def stk_push_callback(request):
-        
-        data = request.body
-        
-        return HttpResponse("STK Push in Django👋")
-
-def musician_detail(request, musician_id):  # Added request parameter
-    musician = get_object_or_404(Musician, id=musician_id)
-
-    data = {
-        "musician": musician,
-    }
-
-    return render(request, "musician_detail.html", data)
+    """Handle M-Pesa callback."""
+    # Add proper callback handling logic here
+    return HttpResponse("STK Push callback received")
 
 
-# def venues(request):
-
-#     return render(request, 'venues.html')
-
-
+@login_required
 def pay(request, room_id):
+    """Payment page for a room."""
     room = get_object_or_404(Room, id=room_id)
-    if request.method == 'POST':
-        # Handle the payment logic here
-        # For example, process payment and update room status
-        return redirect('success')  # Redirect to a success page
     return render(request, 'pay.html', {'room': room})
 
 
-def success(request):
-    return render(request, 'success.html')
-
-
+@login_required
+def payment_success(request):
+    """Payment success page."""
+    messages.success(request, 'Payment completed successfully!')
+    return render(request, 'payment_success.html')

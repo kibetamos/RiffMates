@@ -56,15 +56,7 @@
                   <img src="{% static 'assets/images/faces/face1.jpg'  %}" alt="image">
                   <span class="availability-status online"></span>
                 </div>
-                <!-- {% if request.user.is_authenticated %}
-  <p></p>
-  <a href="{% url 'logout' %}">Logout</a>
 
-  <a href="{% url 'login' %}">Login</a>
-  <a href="{% url 'register' %}">Signup</a>
-{% endif %}
-
-<h1>Welcome!</h1> -->
                 <div class="nav-profile-text">
                   <p class="mb-1 text-black">{{ request.user.username }}</p>
                 </div>
@@ -74,7 +66,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'logout' %}">
+                <a class="dropdown-item" href="{% url 'home:logout' %}">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
@@ -125,33 +117,33 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">
+              <a class="nav-link" href="{% url 'bands:home' %}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'bands' %}">
+              <a class="nav-link" href="{% url 'bands:bands' %}"> 
                 <span class="menu-title">Band</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'musicians' %}">
+              <a class="nav-link" href="{% url 'bands:musicians' %}">
                 <span class="menu-title">Musicians</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'venues' %}">
+              <a class="nav-link" href="{% url 'bands:venues' %}">
                 <span class="menu-title">venue</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'rooms' %}">
+              <a class="nav-link" href="{% url 'bands:rooms' %}">
                 <span class="menu-title">Rooms</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>

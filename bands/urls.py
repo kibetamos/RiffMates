@@ -1,40 +1,29 @@
 from django.urls import path
 from bands import views
-# from django.urls import path
-from .views import add_musician_view, musician_detail, home, create_band, rooms, stk_push_callback
 
+app_name = 'bands'  # Add namespace for your app
 
 urlpatterns = [
+    # Home
+    path('', views.home, name='home'),
     
-    # path('', views.index, name='index'),
-
-   path('pay/<int:room_id>/', views.initiate_payment, name='initiate_payment'),
-
-    path('stk-push-callback/', views.stk_push_callback, name='stk_push_callback'),
-
-    path('', home, name='home'),
+    # Musician URLs
+    path('musicians/', views.musicians, name='musicians'),
+    path('musicians/add/', views.add_musician, name='add_musician'),
+    path('musicians/<int:musician_id>/', views.musician_detail, name='musician_detail'),
     
-    path('musicians/', views.musicians, name="musicians"),
-
-    path(' 1', add_musician_view, name='add_musician'),
-
-    path('musician_detail/<int:id>/', musician_detail, name='musician_detail'),
-
-    path('musician/<int:musician_id>/', views.musician, name="musician"),
-
-
-    path('band/<int:band_id>/', views.band, name="band"),
-
-    path('bands/', views.bands, name="bands"),
+    # Band URLs
+    path('bands/', views.bands, name='bands'),
+    path('bands/create/', views.create_band, name='create_band'),
+    path('bands/<int:band_id>/', views.band_detail, name='band_detail'),
     
-    path('create_band/', create_band, name='create_band'),
-
-
+    # Venue/Room URLs
     path('venues/', views.venues, name='venues'),
-
     path('rooms/', views.rooms, name='rooms'),
-
-    path('pay/<int:room_id>/', views.pay, name='pay'),
-    path('success/', views.success, name='success')
-
+    
+    # Payment URLs
+    path('rooms/pay/<int:room_id>/', views.pay, name='pay'),
+    path('rooms/initiate-payment/<int:room_id>/', views.initiate_payment, name='initiate_payment'),
+    path('payment/success/', views.payment_success, name='payment_success'),
+    path('stk-push-callback/', views.stk_push_callback, name='stk_push_callback'),
 ]

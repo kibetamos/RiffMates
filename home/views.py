@@ -1,94 +1,92 @@
-from importlib.resources import contents
-from django.shortcuts import render,redirect
-from django.http import HttpResponse, HttpRequest
-from django.contrib.auth import authenticate, login, logout 
-from django.contrib.auth import authenticate, login as auth_login
-from .forms import SignupForm, LoginForm
-from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_protect
+from .forms import SignupForm, LoginForm  # Assuming you'll use these forms
 
-# Create your views here.
+# Static Pages
 def credits(request):
-    content ={ 
-        
-        "message": "Amok"
-    }
-    return render(request,'credits.html', content)
-
+    """Credits page view"""
+    return render(request, 'credits.html', {"message": "Amok"})
 
 def news(request):
-    data={
-        'news':[
-            "RiffMates now has a news page!",
-            "RiffMates has its first web page",
-            # 'book':{
-            #     'name':'Damu nNyeusi'
-            # }
-        ],
-    }
+    """News page view"""
+    news_items = [
+        "RiffMates now has a news page!",
+        "RiffMates has its first web page",
+    ]
+    return render(request, "news.html", {'news': news_items})
 
-    return render(request, "news.html", data)
-
+# Authentication Views
+@csrf_protect
+@require_http_methods(["GET", "POST"])
 def register(request):
+    """User registration view"""
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
-        country = request.POST.get('country')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
         terms = request.POST.get('terms')
 
-        if not all([username, email, country, password1, password2, terms]):
+        # Validation
+        if not all([username, email, password1, password2, terms]):
             messages.error(request, 'Please fill out all fields.')
         elif password1 != password2:
             messages.error(request, 'Passwords do not match.')
+        elif len(password1) < 8:
+            messages.error(request, 'Password must be at least 8 characters.')
         else:
             try:
-                user = User.objects.create(
-                    username=username,
-                    email=email,
-                    password=make_password(password1)
-                )
-                # Here you can also save the country information to the user's profile if you have one
-                auth_login(request, user)
-                messages.success(request, 'Registration successful')
-                return redirect('home')
+                if User.objects.filter(username=username).exists():
+                    messages.error(request, 'Username already exists.')
+                elif User.objects.filter(email=email).exists():
+                    messages.error(request, 'Email already registered.')
+                else:
+                    user = User.objects.create_user(
+                        username=username,
+                        email=email,
+                        password=password1
+                    )
+                    auth_login(request, user)
+                    messages.success(request, 'Registration successful!')
+                    return redirect('home')
             except Exception as e:
-                messages.error(request, f'Error: {e}')
-    return render (request, 'register.html')
+                messages.error(request, f'Registration error: {str(e)}')
+    
+    return render(request, 'registration/register.html')
 
-
+@csrf_protect
+@require_http_methods(["GET", "POST"])
 def login(request):
+    """User login view"""
+    if request.user.is_authenticated:
+        return redirect('home')
 
     if request.method == 'POST':
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('password', '').strip()
 
-        username = request.POST.get('username', '')
-
-        password = request.POST.get('password', '')
-
-        if username and password:
-
+        if not (username and password):
+            messages.error(request, 'Both username and password are required')
+        else:
             user = authenticate(request, username=username, password=password)
-
             if user is not None:
-                
                 auth_login(request, user)
-
-                return redirect('home')  # Redirect to the home page or another page
+                next_url = request.GET.get('next', 'home')
+                return redirect(next_url)
             else:
-
                 messages.error(request, 'Invalid username or password')
 
-        else:
+    return render(request, 'registration/login.html')
 
-            messages.error(request, 'Both username and password are required')
-
-    return render(request, 'login.html')
-
-
-# logout page
 def user_logout(request):
-    logout(request)
+    """User logout view"""
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, 'You have been logged out successfully.')
     return redirect('login')

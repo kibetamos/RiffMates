@@ -1,11 +1,11 @@
 
 from django.contrib import admin
 from django.urls import path, include 
+from bands.views import home 
 
 urlpatterns = [
-    path('home/', include("home.urls")),
-    path('admin/', admin.site.urls),
-    # path('credits/', home_views.credits, name="credits"),
-    # path('news/', home_views.news),
-    path('', include("bands.urls"))
+    path('', home, name='home'),  # Root URL
+    path('bands/', include('bands.urls')),
+    path('accounts/', include('home.urls')),  # For auth
 ]
+

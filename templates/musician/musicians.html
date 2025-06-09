@@ -1,3 +1,6 @@
+
+
+
 {% load static %}
 
 
@@ -76,7 +79,7 @@
                 </div>
                 
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black">{{user.username}}</p>
+                  <p class="mb-1 text-black">Amok</p>
                 </div>
                 
               </a>
@@ -84,7 +87,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'logout' %}">
+                <a class="dropdown-item" href="{% url 'home:logout' %}">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
@@ -130,14 +133,14 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">
+              <a class="nav-link" href="{% url 'bands:home' %}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'bands' %}">
-                <span class="menu-title">Band</span>
+              <a class="nav-link" href="{% url 'bands:musicians' %}">
+                <span class="menu-title">Musicians</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
@@ -151,7 +154,7 @@
               <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-primary text-white me-2">
                   <i class="mdi mdi-home"></i>
-                </span> Bands
+                </span> Musicians
               </h3>
               <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
@@ -166,9 +169,9 @@
                 <div class="card bg-gradient-danger card-img-holder text-white">
                   <div class="card-body">
                     <img src="{% static 'assets/images/dashboard/circle.svg'  %}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Bands <i class="mdi mdi-chart-line mdi-24px float-end"></i>
+                    <h4 class="font-weight-normal mb-3">Musicians <i class="mdi mdi-chart-line mdi-24px float-end"></i>
                     </h4>
-                    <h2 class="mb-5">{{ number_of_bands }}</h2>
+                    <h2 class="mb-5">{{ all_musicians_count }}</h2>
                     <h6 class="card-text">Increased by 60%</h6>
                   </div>
                 </div>
@@ -201,32 +204,40 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Bands</h4>
+                    <h4 class="card-title">Musicians</h4>
                     <div class="table-responsive">
                       <table class="table">
                         <thead>
                           <tr>
                             <th> ID </th>
-                            <th> Name</th>
-                            <th> Musicians</th>
-                            <!-- <th> Status </th>
-                            <th> Last Update </th>
-                            <th> Tracking ID </th> -->
+                            <th> FName</th>
+                            <th> LName </th>
+                            <th> Date </th>
+                            <th> Bands </th>
                           </tr>
                         </thead>
                         <tbody>
-                          {% for band in bands %}
+                          {% for musician in musicians %}
                           <tr>
                             
                             <td>
-                              {{band.id}}
+                              {{musician.id}}
                             </td>
                             <td>
-                              {{band.name}}
+                              {{musician.last_name}}
                             </td>
                             <td>
-                              {{band.musicians.count}}
-                            </td>
+                                {{musician.first_name}}
+                              </td>
+                              <td>
+                                {{musician.birth}}
+                              </td>
+                              <!-- For each musician, it counts the number of associated bands using musician.band_set.count. 
+                              This directly uses Django's reverse relationship manager to count the related bands. -->
+                              <td>
+                                {{musician.band_set.count}}
+                              </td>
+                              
                             {% endfor %}
                             <!-- <td> Fund is not recieved </td> -->
                             <!-- <td>
@@ -242,28 +253,19 @@
 
                       </div>
                     </div>
-                    <!-- <nav>
-                      <a class="nav-link" href="{% url 'create_band' %}">
-                          <span class="menu-title">Band</span>
-                          <i class="mdi mdi-home menu-icon"></i>
-                      </a>
-                  </nav> -->
                     
-                        <!-- <nav>
-                          <a class="nav-link" href="{% url 'create_band' %}">
-                              <span class="menu-title">Band</span>
-                              <i class="mdi mdi-home menu-icon"></i>
-                          </a>
-                      </nav> -->
+
+
 
                       <nav>
-                        <a class="nav-link" href="{% url 'create_band' %}">
+                        <a class="nav-link" href="{% url 'bands:add_musician' %}">
                           <button class="btn">
-                            <span class="menu-title">Band</span>
+                            <span class="menu-title">Add Musicians</span>
                             <i class="mdi mdi-home menu-icon"></i>
                           </button>
                         </a>
                       </nav>
+
                       <!-- </li> -->
 
                                          
